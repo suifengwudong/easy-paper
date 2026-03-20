@@ -188,41 +188,49 @@
   )
 }
 
-#let header-style(heading, config) = {
+#let header-style(target, config) = {
+  // 无编号标题（如目录、参考文献等附页）不显示页眉
+  if target.numbering == none {
+    return
+  }
+
   set text(font: config.header-font)
   let title = title-state.get()
+  let count = counter(heading.where(level: 1)).at(target.location()).first()
+  let level = numbering("一", count)
+  let heading-text = level + h(config.small-space) + target.body
   block(
     width: 100%,
     stroke: (bottom: 1pt + gray),
     inset: (bottom: 4pt),
     grid(
       columns: (1fr, 1fr),
-      align(left, title), align(right, heading),
+      align(left, title), align(right, heading-text),
     ),
   )
 }
 
-#let prev-header = context {
+#let current-header = context {
   let config = config-state.get()
+  let current-page = here().page()
+
+  // 如果当前页面上存在位于顶部的一级标题，则直接使用该标题
+  let page-headings = query(heading.where(level: 1)).filter(h => {
+    let loc = h.location()
+    loc.page() == current-page and loc.position().y < 80pt
+  })
+  if page-headings.len() > 0 {
+    let target = page-headings.first()
+    return header-style(target, config)
+  }
+
+  // 当前页面顶部没有标题，回退到上一个标题
   let headings = query(heading.where(level: 1).before(here()))
   if headings.len() == 0 {
     return
   }
-  let level = counter(heading.where(level: 1)).display("一")
-  let heading = level + h(config.small-space) + headings.last().body
-  header-style(heading, config)
-}
-
-#let next-header = context {
-  let config = config-state.get()
-  let headings = query(heading.where(level: 1).after(here()))
-  if headings.len() == 0 {
-    return
-  }
-  let count = counter(heading.where(level: 1)).get().first() + 1
-  let level = numbering("一", count)
-  let heading = level + h(config.small-space) + headings.first().body
-  header-style(heading, config)
+  let target = headings.last()
+  header-style(target, config)
 }
 
 // 标题
@@ -300,7 +308,7 @@
   set page(
     numbering: "1",
     number-align: center,
-    header: prev-header,
+    header: current-header,
     header-ascent: config.leading,
   )
 
