@@ -165,6 +165,8 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 | strong-font         | (Serif, Hei)             | 加粗字体       |
 | emph-font           | (Serif, Kai)             | 强调字体       |
 | raw-font            | (Consolas, Hei)          | 代码字体       |
+| punctuation-compress| true                     | 标点连用压缩   |
+| punctuation-pair-tracking | -1em               | 标点压缩量     |
 | **间距设置**        |                          |                |
 | spacing             | 1.02em                   | 段间距         |
 | leading             | 1.02em                   | 行间距         |
@@ -182,6 +184,10 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 | table-header-stroke | 0.05em                   | 表头边框粗细   |
 
 另外，`project` 还支持目录参数：`toc`、`toc-title`、`toc-depth`。
+
+中文标点连用（如 `：“`）可通过以下参数微调：
+- `punctuation-compress`: 是否启用连用压缩（默认 `true`）
+- `punctuation-pair-tracking`: 压缩量（默认 `-1em`，可在 `-0.6em` 到 `-1.2em` 间调整）
 
 ## 效果展示
 
