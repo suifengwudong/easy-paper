@@ -293,6 +293,9 @@
   date: none,
   abstract: none,
   keywords: (),
+  toc: false,
+  toc-title: [目录],
+  toc-depth: 3,
   config: (:),
   body,
 ) = {
@@ -429,6 +432,12 @@
     keywords: keywords,
     config: config,
   )
+
+  // 可选目录
+  if toc {
+    outline(title: toc-title, depth: toc-depth)
+    pagebreak()
+  }
 
   // 正文内容
   body

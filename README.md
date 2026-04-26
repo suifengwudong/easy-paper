@@ -20,6 +20,7 @@ A ready-to-use Typst template for Chinese papers.
   title: "文档标题",
   author: "作者姓名",
   date: auto,
+  toc: true,
   abstract: [
     摘要内容...
   ],
@@ -70,6 +71,24 @@ typst init @preview/easy-paper
   caption: [测量数据]
 )
 ```
+
+### 目录（TOC）
+
+可通过 `project` 的参数启用目录：
+
+```typst
+#show: project.with(
+  title: "文档标题",
+  author: "作者姓名",
+  toc: true,
+  toc-title: [目录],
+  toc-depth: 3,
+)
+```
+
+- `toc`: 是否显示目录（默认 `false`）
+- `toc-title`: 目录标题（默认 `[目录]`）
+- `toc-depth`: 目录显示的标题层级深度（默认 `3`）
 
 ### 数学公式
 
@@ -161,6 +180,8 @@ Windows 大部分字体已内置，macOS/Linux 可能需要额外安装中文字
 | enum-numbering      | ("1.", "(1)", "①", "a.") | 有序列表编号   |
 | table-stroke        | 0.08em                   | 表格边框粗细   |
 | table-header-stroke | 0.05em                   | 表头边框粗细   |
+
+另外，`project` 还支持目录参数：`toc`、`toc-title`、`toc-depth`。
 
 ## 效果展示
 

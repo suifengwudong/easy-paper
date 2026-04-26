@@ -4,6 +4,7 @@
   title: "EasyPaper 模板使用示例",
   author: "张三",
   date: auto,
+  toc: true,
   abstract: [
     本文档展示了 EasyPaper 模板的主要功能，包括题目框、解答框、三线表格、数学公式等学术组件。
   ],
