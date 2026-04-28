@@ -47,14 +47,14 @@
   title-font: (font.en_serif, font.zh_hei),
   author-font: (font.en_sans_serif, font.zh_shusong),
   body-font: (font.en_serif, font.zh_shusong),
+  body-latin-font: font.en_serif,
+  body-cjk-font: font.zh_shusong,
   heading-font: (font.en_serif, font.zh_zhongsong),
   caption-font: (font.en_serif, font.zh_kai),
   header-font: (font.en_serif, font.zh_kai),
   strong-font: (font.en_serif, font.zh_hei),
   emph-font: (font.en_serif, font.zh_kai),
   raw-font: (font.en_code, font.zh_hei),
-  punctuation-compress: true,
-  punctuation-pair-tracking: -1em,
   // 间距设置
   spacing: 1.02em,
   leading: 1.02em,
@@ -88,10 +88,6 @@
 
 // 偏微分符号
 #let pardiff(x, y) = $frac(partial #x, partial #y)$
-
-// ================================
-// 中文标点挤压规则
-// ================================
 
 // ================================
 // 学术组件
@@ -299,15 +295,10 @@
   date: none,
   abstract: none,
   keywords: (),
-  toc: false,
-  toc-title: [目录],
-  toc-depth: 3,
   config: (:),
   body,
 ) = {
   let config = default-config + config
-  let body-latin-font = config.body-font.at(0, default: font.en_serif)
-  let body-cjk-font = config.body-font.at(1, default: font.zh_shusong)
   config-state.update(config)
   title-state.update(title)
   show table: three-line-table.with(config: config)
@@ -327,11 +318,11 @@
   set heading(numbering: "1.1")
   set text(
     font: (
-      (name: body-latin-font, covers: "latin-in-cjk"),
-      body-cjk-font,
+      (name: font.en_serif, covers: "latin-in-cjk"),
+      font.zh_shusong,
     ),
     lang: "zh",
-    region: "CN",
+    region: "cn",
     size: config.text-size,
   )
   set par(
@@ -416,8 +407,6 @@
   // 文字样式
   show strong: set text(font: config.strong-font)
   show emph: set text(font: config.emph-font)
-
-  // 中文标点跟随正文字体链，避免与压缩规则相互干扰
   show ref: set text(red)
   show link: it => {
     set text(blue)
@@ -445,12 +434,6 @@
     keywords: keywords,
     config: config,
   )
-
-  // 可选目录
-  if toc {
-    outline(title: toc-title, depth: toc-depth)
-    pagebreak()
-  }
 
   // 正文内容
   body
