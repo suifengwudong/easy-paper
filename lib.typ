@@ -93,12 +93,6 @@
 // 中文标点挤压规则
 // ================================
 
-// 标点集，当连续出现其中的两个字符时会进行挤压
-#let punctuation-char-set = "，。！？；：、（）［］【】〔〕〈〉《》「」『』“”‘’…—～,.!?;:()\\[\\]{}<>\"'＂＇"
-#let punctuation-pair-regex = regex(
-  "([" + punctuation-char-set + "])\\s*([" + punctuation-char-set + "])",
-)
-
 // ================================
 // 学术组件
 // ================================
@@ -422,14 +416,6 @@
   // 文字样式
   show strong: set text(font: config.strong-font)
   show emph: set text(font: config.emph-font)
-  // 连续两个中文标点时做挤压；单个标点保持全角占位
-  if config.punctuation-compress {
-    show punctuation-pair-regex: it => {
-      let left = it.captures.at(0)
-      let right = it.captures.at(1)
-      [#left#h(config.punctuation-pair-tracking)#right]
-    }
-  }
 
   // 中文标点跟随正文字体链，避免与压缩规则相互干扰
   show ref: set text(red)
