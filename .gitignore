@@ -1,1 +1,4 @@
 *.pdf
+typst_source/
+typst*
+
