@@ -47,8 +47,6 @@
   title-font: (font.en_serif, font.zh_hei),
   author-font: (font.en_sans_serif, font.zh_shusong),
   body-font: (font.en_serif, font.zh_shusong),
-  body-latin-font: font.en_serif,
-  body-cjk-font: font.zh_shusong,
   heading-font: (font.en_serif, font.zh_zhongsong),
   caption-font: (font.en_serif, font.zh_kai),
   header-font: (font.en_serif, font.zh_kai),
